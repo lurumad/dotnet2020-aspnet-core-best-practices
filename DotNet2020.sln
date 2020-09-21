@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{394106D7-3EA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighPerformanceLogging", "src\HighPerformanceLogging\HighPerformanceLogging.csproj", "{8DA3E83D-AE56-4B74-9B53-4F254C7F9BA0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{DCF4C4AB-C290-47F6-99F7-1DD0C6FF26C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.Api", "src\Cache\Cache.Api\Cache.Api.csproj", "{A92B44ED-FD43-4990-A9D7-DFA6FAA513B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,18 @@ Global
 		{8DA3E83D-AE56-4B74-9B53-4F254C7F9BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA3E83D-AE56-4B74-9B53-4F254C7F9BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA3E83D-AE56-4B74-9B53-4F254C7F9BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A92B44ED-FD43-4990-A9D7-DFA6FAA513B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A92B44ED-FD43-4990-A9D7-DFA6FAA513B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A92B44ED-FD43-4990-A9D7-DFA6FAA513B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A92B44ED-FD43-4990-A9D7-DFA6FAA513B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8DA3E83D-AE56-4B74-9B53-4F254C7F9BA0} = {394106D7-3EA6-4ADA-80FF-24B76D74A458}
+		{DCF4C4AB-C290-47F6-99F7-1DD0C6FF26C8} = {394106D7-3EA6-4ADA-80FF-24B76D74A458}
+		{A92B44ED-FD43-4990-A9D7-DFA6FAA513B5} = {DCF4C4AB-C290-47F6-99F7-1DD0C6FF26C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06469EAF-1C9B-49A3-A9AC-C63C13DB50CA}
