@@ -57,19 +57,19 @@ namespace Dotnet2020.Api.Features.HttpContext
         }
 
         [Route("search")]
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> GoodSearch(string query)
         {
             var path = HttpContext.Request.QueryString.Value;
-            var google = DoSearch($"https://www.google.com/search?q={query}", path);
-            var bing = DoSearch($"https://www.bing.com/search?q={query}", path);
-            var yandex = DoSearch($"https://yandex.com/search/?text={query}", path);
+            var google = GoodDoSearch($"https://www.google.com/search?q={query}", path);
+            var bing = GoodDoSearch($"https://www.bing.com/search?q={query}", path);
+            var yandex = GoodDoSearch($"https://yandex.com/search/?text={query}", path);
 
             await Task.WhenAll(google, bing, yandex);
 
             return Ok();
         }
 
-        private async Task<string> DoSearch(string query, string path)
+        private async Task<string> GoodDoSearch(string query, string path)
         {
             try
             {

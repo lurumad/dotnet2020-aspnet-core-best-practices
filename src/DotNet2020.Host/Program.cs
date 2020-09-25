@@ -1,4 +1,5 @@
 using Dotnet2020.Api.Features.EFCore;
+using DotNet2020.Host.Infrastructure.Seeders;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -10,7 +11,7 @@ namespace DotNet2020.Host
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDbContext<ApiDbContext>()
+                .MigrateDbContext<ApiDbContext>(dbContext => CustomersSeeder.Run(dbContext).Wait())
                 .Run();
         }
 

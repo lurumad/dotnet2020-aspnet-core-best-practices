@@ -2,7 +2,6 @@
 using BenchmarkDotNet.Running;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace HighPerformanceLogging
 {
