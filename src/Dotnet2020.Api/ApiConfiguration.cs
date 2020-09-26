@@ -1,5 +1,4 @@
 ﻿using Dotnet2020.Api.Features.DependencyInjection;
-using Dotnet2020.Api.Features.HttpContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +25,7 @@ namespace Dotnet2020.Api
                 //.AddSingleton<IConfigureOptions<MultitenancyOptions>, ConfigureMultitenancyOptions>()
                 .AddHostedService<GoodScopeHostedService>()
                 .AddHttpClient()
-                .AddHttpContextAccessor()
-                .AddScoped<BadAuthorizationService>();
+                .AddHttpContextAccessor();
 
             return services;
         }
