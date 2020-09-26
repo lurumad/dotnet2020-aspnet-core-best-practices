@@ -30,13 +30,9 @@ namespace DotNet2020.Host
                 .AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
-            });
+            ApiConfiguration.Configure(app, _ => _, _ => _, _ => _);
         }
     }
 }

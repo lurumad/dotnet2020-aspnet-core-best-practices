@@ -1,7 +1,9 @@
 ﻿using Dotnet2020.Api.Features.DependencyInjection;
 using Dotnet2020.Api.Features.HttpContext;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Dotnet2020.Api
 {
@@ -35,9 +37,22 @@ namespace Dotnet2020.Api
             return services;
         }
 
-        public static void Configure(IApplicationBuilder app)
+        public static IApplicationBuilder Configure(
+            IApplicationBuilder app,
+            Func<IApplicationBuilder, IApplicationBuilder> preRouting,
+            Func<IApplicationBuilder, IApplicationBuilder> postRouting,
+            Func<IEndpointRouteBuilder, IEndpointRouteBuilder> configureEndpoints)
         {
-            
+            preRouting(app);
+            app.UseRouting();
+            postRouting(app);
+            app.UseEndpoints(endpoints =>
+            {
+                configureEndpoints(endpoints);
+                endpoints.MapDefaultControllerRoute();
+            });
+
+            return app;
         }
     }
 }
