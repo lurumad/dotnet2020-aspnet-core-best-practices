@@ -17,7 +17,7 @@ namespace Dotnet2020.Api.Features.HttpContext
             var httpContext = httpContextAccessor.HttpContext;
 
             return httpContext is object
-                   && httpContextAccessor.HttpContext.User.IsInRole(AdminRole);
+                   && httpContext.User.IsInRole(AdminRole);
         }
     }
 }

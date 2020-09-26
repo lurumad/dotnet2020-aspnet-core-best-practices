@@ -25,11 +25,6 @@ namespace Dotnet2020.Api
                 })
                 //.AddSingleton<IConfigureOptions<MultitenancyOptions>, ConfigureMultitenancyOptions>()
                 .AddHostedService<GoodScopeHostedService>()
-                .AddHashids(setup =>
-                {
-                    setup.Salt = "lzDeEA)xmaEnEF((JzX9xZH6d2Ui5NNEjCtiYa8*KD6FyVB@Eckvrw5x2gf+";
-                    setup.MinHashLength = 8;
-                })
                 .AddHttpClient()
                 .AddHttpContextAccessor()
                 .AddScoped<BadAuthorizationService>();
