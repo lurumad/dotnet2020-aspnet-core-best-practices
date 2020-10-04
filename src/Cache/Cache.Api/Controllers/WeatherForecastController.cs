@@ -36,8 +36,8 @@ namespace Cache.Api.Controllers
         [HttpGet]
         //[ETagFilter]
         [ETagFilter]
-        //[ResponseCache(Location = ResponseCacheLocation.Any, Duration = 20)] //, VaryByQueryKeys = new String[] { "city" })] // 
-        [ResponseCache(CacheProfileName = "Default30")]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 20)] //, VaryByQueryKeys = new String[] { "city" })] // 
+        //[ResponseCache(CacheProfileName = "Default30")]
         public async Task<ActionResult> Get(string city, int numberOfDays = 5)
         {
             var rng = new Random();
