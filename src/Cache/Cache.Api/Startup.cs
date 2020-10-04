@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cache.Api.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,9 @@ namespace Cache.Api
                     });
             });
             services.AddResponseCaching();
+            //services.AddSingleton<ETagFilter>();
+            services.AddSingleton<ETagFilterAttribute>();
+            //services.AddSingleton<IEntityTaggerGenerator, MyChecksumEntityTaggerGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,13 +53,16 @@ namespace Cache.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
+            //app.UseMiddleware<ETagMiddleware>();
+
             app.UseResponseCaching(); //
+
 
             app.UseEndpoints(endpoints =>
             {
