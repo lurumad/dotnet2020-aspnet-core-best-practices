@@ -34,8 +34,10 @@ namespace Cache.Api
                         Duration = 30
                     });
             });
+
             services.AddResponseCaching();
-            //services.AddSingleton<ETagFilterAttribute>();
+
+            services.AddSingleton<ETagFilterAttribute>();
         }
 
 
