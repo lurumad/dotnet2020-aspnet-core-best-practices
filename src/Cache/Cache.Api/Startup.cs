@@ -23,29 +23,22 @@ namespace Cache.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options =>
             {
-                options.CacheProfiles.Add("Default30",
+                options.CacheProfiles.Add("PrivateShort",
                     new CacheProfile()
                     {
+                        NoStore = true,
                         Duration = 30
-                    });
-                options.CacheProfiles.Add("DefaultPrivate",
-                    new CacheProfile()
-                    {
-                        NoStore = true
                     });
             });
             services.AddResponseCaching();
-            //services.AddSingleton<ETagFilter>();
-            services.AddSingleton<ETagFilterAttribute>();
-            //services.AddSingleton<IEntityTaggerGenerator, MyChecksumEntityTaggerGenerator>();
+            //services.AddSingleton<ETagFilterAttribute>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -53,16 +46,11 @@ namespace Cache.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
 
-            //app.UseMiddleware<ETagMiddleware>();
-
-            app.UseResponseCaching(); //
-
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {

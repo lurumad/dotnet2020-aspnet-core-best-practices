@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cache.Api.Filters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Net.Http.Headers;
 
 namespace Cache.Api.Controllers
 {
@@ -25,8 +22,6 @@ namespace Cache.Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        //private readonly IEntityTaggerGenerator _entityTagger;
-
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
@@ -34,23 +29,70 @@ namespace Cache.Api.Controllers
         }
 
         [HttpGet]
-        //[ETagFilter]
-        [ETagFilter]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 20)] //, VaryByQueryKeys = new String[] { "city" })] // 
-        //[ResponseCache(CacheProfileName = "Default30")]
-        public async Task<ActionResult> Get(string city, int numberOfDays = 5)
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 5)]
+        public async Task<ActionResult> GetAll()
         {
             var rng = new Random();
-            var forecasts = Enumerable.Range(1, numberOfDays).Select(index => new WeatherForecast
+            var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = 5, //rng.Next(-20, 55),
+                Date = DateTime.Now.AddDays(5),
+                TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)],
-                City = "Madrid", //Cities[rng.Next(Cities.Length)]
+                City = Cities[rng.Next(Cities.Length)]
             })
             .ToArray();
+            return Ok(forecasts);
+        }
 
-            //HttpContext.Response.GetTypedHeaders().ETag = new EntityTagHeaderValue("\"E1\"");
+        [HttpGet]
+        [Route("{city}")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 30, VaryByQueryKeys = new String[] { "city" })]
+        public async Task<ActionResult> GetForCity(string city)
+        {
+            var rng = new Random();
+            var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(5),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)],
+                City = city
+            })
+            .ToArray();
+            return Ok(forecasts);
+        }
+
+        [HttpGet]
+        [Route("~/private")]
+        [ResponseCache(CacheProfileName = "PrivateShort")]
+        public async Task<ActionResult> GetAllPrivate()
+        {
+            var rng = new Random();
+            var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(5),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)],
+                City = Cities[rng.Next(Cities.Length)]
+            })
+            .ToArray();
+            return Ok(forecasts);
+        }
+
+        [HttpGet]
+        [Route("~/etag")]
+        [ETagFilter]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 20)]
+        public async Task<ActionResult> GetWithEtag()
+        {
+            var rng = new Random();
+            var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(5),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)],
+                City = Cities[rng.Next(Cities.Length)]
+            })
+            .ToArray();
             return Ok(forecasts);
         }
 
